@@ -32,6 +32,9 @@ inputs:
   GKE_CONFIG_DIR:
     description: "K8S config file directory."
     required: true
+  GKE_IMAGE_TEMPLATE:
+    description: "GKE Deployment Image Template"
+    required: true
 
 runs:
   using: "composite"
@@ -80,5 +83,5 @@ runs:
       shell: bash
       run: |-
         cd ${{ inputs.GKE_CONFIG_DIR }}
-        kustomize edit set image ${{ env.ar_image_tag }}
+        kustomize edit set image ${{ inputs.GKE_IMAGE_TEMPLATE }}=${{ env.ar_image_tag }}
         kubectl apply -k .
