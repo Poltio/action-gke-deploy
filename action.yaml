@@ -80,5 +80,5 @@ runs:
       shell: bash
       run: |-
         cd "${{ inputs.GKE_CONFIG_DIR }}"
-        kustomize edit set image "${{ env.env.ar_image_tag }}"
+        kustomize edit set image "${{ env.ar_image_tag }}"
         kubectl apply -k .
