@@ -79,6 +79,6 @@ runs:
     - name: Deploy image from AR to GKE
       shell: bash
       run: |-
-        cd "${{ inputs.GKE_CONFIG_DIR }}"
-        kustomize edit set image "${{ env.ar_image_tag }}"
-        kubectl apply -k .
+        cd ${{ inputs.GKE_CONFIG_DIR }}
+        kustomize edit set image ${{ env.ar_image_tag }}
+        kubectl apply -f .
