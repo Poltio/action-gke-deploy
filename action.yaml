@@ -77,6 +77,7 @@ runs:
         location: ${{ inputs.GKE_ZONE }}
 
     - name: Deploy image from AR to GKE
+      shell: bash
       run: |-
         cd "${{ inputs.GKE_CONFIG_DIR }}"
         kustomize edit set image "${{ env.env.ar_image_tag }}"
