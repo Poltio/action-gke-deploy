@@ -19,6 +19,6 @@ jobs:
           fetch-depth: 0
           persist-credentials: false
       - id: release
-        uses: poltio/action-release@85f9196a86341209032ffbd779cb23ab7d8346d7 #latest
+        uses: poltio/action-release@d70888b07c6292712bfd5f9a51098bfbac6f6886 # v0.0.17
         with:
           token: ${{ secrets.GH_TOKEN }}
