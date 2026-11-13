@@ -4,9 +4,10 @@ Builds the image, pushes it to Artifact Registry and applies the kustomize
 directory to GKE. Authenticates with Workload Identity Federation (no keys)
 since v1; v0.x releases take a JSON key instead.
 
-All repos deploy as the shared `gke-deployer` service account. Each calling
-repo needs its own `roles/iam.workloadIdentityUser` binding on it for
-`principalSet://iam.googleapis.com/projects/50670027198/locations/global/workloadIdentityPools/github/attribute.repository/Poltio/<repo>`.
+All repos deploy as the shared `gke-deployer` service account. Every Poltio
+repo may impersonate it (`roles/iam.workloadIdentityUser` is bound to the whole
+`github` pool, whose provider only accepts the Poltio org), so a new repo needs
+no GCP setup.
 
 ```yaml
 jobs:
