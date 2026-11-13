@@ -4,10 +4,10 @@ Builds the image, pushes it to Artifact Registry and applies the kustomize
 directory to GKE. Authenticates with Workload Identity Federation (no keys)
 since v1; v0.x releases take a JSON key instead.
 
-All repos deploy as the shared `gke-deployer` service account. Every Poltio
-repo may impersonate it (`roles/iam.workloadIdentityUser` is bound to the whole
-`github` pool, whose provider only accepts the Poltio org), so a new repo needs
-no GCP setup.
+The service account needs `roles/artifactregistry.writer` on the registry
+repository (plus reader on any repository your Dockerfile pulls base images
+from), `roles/container.developer`, and `roles/iam.workloadIdentityUser`
+granted to your repository through your Workload Identity Provider.
 
 ```yaml
 jobs:
@@ -19,8 +19,8 @@ jobs:
     steps:
       - uses: poltio/action-gke-deploy@<sha> # v1.0.0
         with:
-          GOOGLE_CLOUD_PROJECT_ID: poltio-164412
-          WORKLOAD_IDENTITY_PROVIDER: projects/50670027198/locations/global/workloadIdentityPools/github/providers/poltio
-          SERVICE_ACCOUNT: gke-deployer@poltio-164412.iam.gserviceaccount.com
+          GOOGLE_CLOUD_PROJECT_ID: <project-id>
+          WORKLOAD_IDENTITY_PROVIDER: projects/<project-number>/locations/global/workloadIdentityPools/<pool>/providers/<provider>
+          SERVICE_ACCOUNT: <deployer>@<project-id>.iam.gserviceaccount.com
           # ...remaining inputs, see action.yaml
 ```
