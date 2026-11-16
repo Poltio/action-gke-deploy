@@ -17,6 +17,9 @@ jobs:
       contents: read
       id-token: write # Workload Identity Federation login to GCP
     steps:
+      - uses: actions/checkout@<sha> # the action builds from the caller's checkout
+        with:
+          persist-credentials: false
       - uses: poltio/action-gke-deploy@<sha> # v1.0.0
         with:
           GOOGLE_CLOUD_PROJECT_ID: <project-id>
