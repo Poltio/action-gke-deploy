@@ -4,6 +4,9 @@ Builds the image, pushes it to Artifact Registry and applies the kustomize
 directory to GKE. Authenticates with Workload Identity Federation (no keys)
 since v1; v0.x releases take a JSON key instead.
 
+The build layer cache is stored in Artifact Registry next to the image as
+`<image>:buildcache`, so it survives between jobs and runners.
+
 The service account needs `roles/artifactregistry.writer` on the registry
 repository (plus reader on any repository your Dockerfile pulls base images
 from), `roles/container.developer`, and `roles/iam.workloadIdentityUser`
